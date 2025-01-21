@@ -54,12 +54,12 @@
             width: 100%;
         }
 
-        // input.frequency-input:focus {
-        //     outline: none;
-        //     box-shadow: 0 0 0 2px #22d3ee;
-        //     border: 1px solid #22d3ee;
-        //     transition: ease-in .1s;
-        // }
+        input.frequency-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #22d3ee;
+            border: 1px solid #22d3ee;
+            transition: ease-in .1s;
+        }
 
         ion-button.calculate-button {
             --background: linear-gradient(to right, #22d3ee, #10b981);
