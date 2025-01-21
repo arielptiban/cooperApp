@@ -1,20 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="welcome-page">
+  <div class="content-container">
+    <img src="../../assets/icon/headset.svg" alt="Headphones Icon" class="icon" />
+    <h1 class="title">CooperApp</h1>
+    <p class="description">Tu herramienta perfecta para cálculos de frecuencia y ajustes de sonido.</p>
+    <ion-button expand="block" shape="round" class="start-button" [routerLink]="['/particion-simple']">
+      Comenzar
+    </ion-button>
   </div>
 </ion-content>
