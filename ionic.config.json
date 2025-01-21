@@ -1,0 +1,7 @@
+{
+  "name": "cooperApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
