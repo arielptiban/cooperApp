@@ -1,5 +1,5 @@
 .pSimple-page {
-    --background: #111827;
+    --background: #22272B;
     --overflow: hidden;
 
     .content-container {
@@ -11,11 +11,9 @@
         animation: fade-in 1s ease-in;
 
         .title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            background: linear-gradient(to right, #22d3ee, #10b981);
-            background-clip: text;
-            color: transparent;
+            font-size: 1.2rem;
+            font-weight: bolder;
+            color: white;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -31,19 +29,18 @@
 
         .input-group {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: start;
             gap: 10px;
             width: 100%;
         }
 
-        .freq-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
+        label {
+            color: white;
         }
 
         input.frequency-input {
-            background: #2d3748;
+            background: #282d35;
             border: 1px solid #4a5568;
             color: #ffffff;
             padding-left: 10px;
@@ -51,25 +48,26 @@
             border-radius: 8px;
             padding-top: 8px;
             padding-bottom: 8px;
-            width: 100%;
+            width: 300px;
         }
 
         input.frequency-input:focus {
             outline: none;
-            box-shadow: 0 0 0 2px #22d3ee;
-            border: 1px solid #22d3ee;
+            box-shadow: 0 0 0 2px #d6dcdd;
+            border: 1px solid #d3e6e9;
             transition: ease-in .1s;
         }
 
         ion-button.calculate-button {
-            --background: linear-gradient(to right, #22d3ee, #10b981);
+            --background: rgb(0, 0, 0);
             --color: white;
             --border-radius: 10px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
             --padding-start: 24px;
             --padding-end: 24px;
             --min-height: 50px;
-            --background-activated: #88f4be;
+            --background-activated: #ffffff;
+            --color-activated: black
         }
 
 

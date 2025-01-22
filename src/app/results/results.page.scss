@@ -1,0 +1,61 @@
+.results-page {
+    --background: #22272B;
+    --overflow: hidden;
+
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 8rem;
+    align-items: center;
+    animation: fade-in 1s ease-in;
+
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.description {
+    color: white;
+    max-width: 24rem;
+    text-align: center;
+    margin: 0 auto 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+ion-button.calculate-button {
+    --background: black;
+    --color: white;
+    --border-radius: 10px;
+    --box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+    --padding-start: 24px;
+    --padding-end: 24px;
+    --min-height: 50px;
+    --background-activated: #ffffff;
+    --color-activated: black
+}
+
+// @keyframes fade-in {
+//     0% {
+//         opacity: 0;
+//     }
+//
+//     100% {
+//         opacity: 1;
+//     }
+// }

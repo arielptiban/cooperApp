@@ -7,6 +7,7 @@ import {
   IonToast
 } from '@ionic/angular/standalone';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-particion-simple',
@@ -23,21 +24,27 @@ import { ToastController } from '@ionic/angular';
 
 export class ParticionSimplePage implements OnInit {
   fields = [
-    { name: 'densidad', placeholder: 'Densidad Vol.', value: null },
-    { name: 'espesor', placeholder: 'Espesor', value: null },
-    { name: 'factAmortiguamiento', placeholder: 'Fact. amortiguamiento', value: null },
-    { name: 'coefPoisson', placeholder: 'Coeficiente de Poisson', value: null },
-    { name: 'modYoung', placeholder: 'Modulo de Young', value: null },
-    { name: 'velocidadSonido', placeholder: 'Velocidad del sonido', value: null },
+    { name: 'Densidad (kg/m)', placeholder: 'pv', value: null },
+    { name: 'Espesor (m)', placeholder: 't', value: null },
+    { name: 'Factor de Amortiguamiento', placeholder: 'η', value: null },
+    { name: 'Coeficiente de Poisson', placeholder: 'σ', value: null },
+    { name: 'Módulo de Young', placeholder: 'E', value: null },
+    { name: 'Velocidad del Sonido', placeholder: 'c', value: null },
   ];
 
-  constructor(private toastController: ToastController) { }
+  constructor(
+    private toastController: ToastController,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   async onSubmit() {
-    const emptyFields = this.fields.filter(field => !field.value);
+    const emptyFields = this.fields.filter(field =>
+      (field.value === null || field.value === undefined || field.value === '') &&
+      !(field.name === 'Factor de Amortiguamiento' && field.value === 0) // Permitir que "Factor de Amortiguamiento" sea 0
+    );
 
     if (emptyFields.length > 0) {
       const toast = await this.toastController.create({
@@ -47,30 +54,35 @@ export class ParticionSimplePage implements OnInit {
       });
       toast.present();
     } else {
+      const [pv, t, n, O, E, c] = this.fields.map(field => field.value);
 
-      let pv = this.fields[0].value
-      let t = this.fields[1].value
-      let n = this.fields[2].value
-      let O = this.fields[3].value
-      let E = this.fields[4].value
-      let c = this.fields[5].value
+      if (pv !== null && t !== null && n !== null && O !== null && E !== null && c !== null) {
+        // Cálculo de m
+        const m = pv * t;
+        console.log(m);
 
-      let m: number
-      let B: number
+        // Cálculo de B
+        const B = (E / (1 - Math.pow(O, 2))) * (Math.pow(t, 3) / 12);
 
-      if (pv && t && n && O && E && c !== null) {
-        //calculo de m
-        m = pv * t
-        console.log(m)
+        console.log(E);
+        console.log(`${B.toExponential(2)}`);
 
-        //calculo de B
-        B = (E / (1 - Math.pow(O, 2))) * ((Math.pow(t, 3)) / 12)
+        // Resultados en HTML
+        const calculationResult = `
+          <h1 class="title">Resultados</h1>
+          <p class="description">Se han obtenido los siguientes resultados:</p>
+          <p class="description">m = <strong>${m} kg/m2</strong></p>
+          <p class="description">B = <strong>${B.toExponential(2)} Nm</strong></p>
+          <ion-button expand="block" shape="round" class="calculate-button" type="submit">
+            Volver
+          </ion-button>
+        `;
 
-        console.log(E)
-        console.log(`${B.toExponential(2)}`)
-
-      }
-      else {
+        // Navegación a la página de resultados
+        this.router.navigate(['/results'], {
+          queryParams: { resultHtml: calculationResult },
+        });
+      } else {
         const toast = await this.toastController.create({
           message: 'Ha ocurrido un error, revise los valores de las frecuencias',
           duration: 3000,
@@ -78,9 +90,6 @@ export class ParticionSimplePage implements OnInit {
         });
         toast.present();
       }
-
-
-
     }
   }
 

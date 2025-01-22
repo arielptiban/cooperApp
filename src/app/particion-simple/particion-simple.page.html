@@ -1,12 +1,13 @@
 <ion-content class="pSimple-page">
   <div class="content-container">
-    <h1 class="title">Introducir datos de frecuencia </h1>
+    <h1 class="title">INTRODUCIR DATOS DE FRECUENCIA</h1>
 
     <form (ngSubmit)="onSubmit()">
       <div class="flex items-center space-x-2">
         <div class="container">
           <div class="input-group" *ngFor="let field of fields">
-            <img src="/assets/icon/frequency.svg" alt="Icono de Frecuencia" class="freq-icon">
+
+            <label for="{{field.name}}">{{field.name}}</label>
             <input type="number" class="frequency-input" placeholder="{{field.placeholder}}" [(ngModel)]="field.value"
               name="{{field.name}}" required />
           </div>
