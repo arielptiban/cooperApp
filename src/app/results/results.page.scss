@@ -1,61 +1,62 @@
-.results-page {
-    --background: #22272B;
-    --overflow: hidden;
-
+.ticket-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #22272B;
 }
 
-.content-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 8rem;
-    align-items: center;
-    animation: fade-in 1s ease-in;
-
+.ticket {
+    background: #282d35;
+    border: 2px dashed #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
 }
 
 .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
     font-size: 1.2rem;
-    font-weight: bolder;
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 1rem 0 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
 }
 
 .description {
-    color: white;
-    max-width: 24rem;
-    text-align: center;
-    margin: 0 auto 20px;
+    font-size: 1rem;
+    color: #dfdfdf;
+    margin-bottom: 0.1rem;
+
+    strong {
+        color: #ffffff;
+    }
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 500px;
-    margin-bottom: 20px;
+.ticket-section {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
 }
 
 ion-button.calculate-button {
-    --background: black;
-    --color: white;
-    --border-radius: 10px;
-    --box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-    --padding-start: 24px;
-    --padding-end: 24px;
-    --min-height: 50px;
+    --background: #000000;
+    --color: #ffffff;
+    --border-radius: 50px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 40px;
     --background-activated: #ffffff;
-    --color-activated: black
+    --color-activated: #000000;
 }
-
-// @keyframes fade-in {
-//     0% {
-//         opacity: 0;
-//     }
-//
-//     100% {
-//         opacity: 1;
-//     }
-// }

@@ -30,6 +30,8 @@ export class ParticionSimplePage implements OnInit {
     { name: 'Coeficiente de Poisson', placeholder: 'σ', value: null },
     { name: 'Módulo de Young', placeholder: 'E', value: null },
     { name: 'Velocidad del Sonido', placeholder: 'c', value: null },
+    { name: 'Frecuencia', placeholder: 'f', value: null },
+
   ];
 
   constructor(
@@ -47,17 +49,25 @@ export class ParticionSimplePage implements OnInit {
       this.createToast("Complete todos los campos");
     }
     else {
-      const [pv, t, n, O, E, c] = this.fields.map(field => field.value);
+      const [pv, t, n, O, E, c, f] = this.fields.map(field => field.value);
 
-      if ([pv, t, n, O, E, c].every(value => value !== null)) {
+      if ([pv, t, n, O, E, c, f].every(value => value !== null)) {
 
-        let mResult = this.mCalculate(pv!, t!)
-        let bResult = this.bCalculate(t!, O!, E!)
-        let coincidenceFrequency = this.coincidenceFreq(c!, mResult, bResult);
-        let densityFrequency = this.densityFreq(E!, pv!, mResult, bResult);
-        let zone1 = this.zone1Calc(mResult)
-        let zone2 = this.zone2Calc(mResult, coincidenceFrequency, n!)
-        this.presentResults(mResult, bResult, coincidenceFrequency, densityFrequency, zone1, zone2)
+        if (f! <= 100) {
+
+          let mResult = this.mCalculate(pv!, t!)
+          let bResult = this.bCalculate(t!, O!, E!)
+          let coincidenceFrequency = this.coincidenceFreq(c!, mResult, bResult);
+          let densityFrequency = this.densityFreq(E!, pv!, mResult, bResult);
+          let zone1 = this.zone1Calc(mResult)
+          let zone2 = this.zone2Calc(mResult, coincidenceFrequency, n!)
+          let zone3 = this.zone3Calc(mResult, f!)
+          this.presentResults(mResult, bResult, coincidenceFrequency, densityFrequency, zone1, zone2, zone3)
+        }
+        else {
+          this.createToast("Frecuencia no debe ser mayor a 100")
+        }
+
       }
       else {
         this.createToast("Ha ocurrido un error, revise los valores de las frecuencias");
@@ -116,37 +126,63 @@ export class ParticionSimplePage implements OnInit {
     return R;
   }
 
-  presentResults(mResult: number, bResult: number, coincidenceFrequency: number, densityFrequency: number, zone1: number[], zone2: number[]) {
+  zone3Calc(mResult: number, f: number) {
+    let R = 20 * Math.log10((mResult * f)) - 47
+    return R
+  }
+
+  presentResults(mResult: number, bResult: number, coincidenceFrequency: number, densityFrequency: number, zone1: number[], zone2: number[], zone3: number) {
     if (!Array.isArray(zone1)) {
       console.error("zone1 no es un array de números");
       return;
     }
 
-    const f: string[] = ['125', '250', '500', '1k'];
+    const f1: string[] = ['125', '250', '500', '1k'];
+    const f2: string[] = ['2k', '4k'];
 
     const calculationResult = `
-    <h1 class="title">RESULTADOS</h1>
-    <p class="description">Se han obtenido los siguientes resultados:</p>
+    <div class="ticket">
+    <h1 class="title">Resultados</h1>
 
-    <p class="description">m = <strong>${mResult} kg/m2</strong></p>
-    <p class="description">B = <strong>${bResult.toExponential(2)} Nm</strong></p>
-    <h1 class="title">Frecuencias</h1>
-    <p class="description">fc = <strong>${coincidenceFrequency.toFixed(2)} Hz</strong></p>
-    <p class="description">fd = <strong>${densityFrequency.toFixed(2)} KHz</strong></p>
-    <h1 class="title">Zone 1</h1>
-    <!-- Mostrar todos los valores de zone1 -->
-    ${zone1.map((value: number, index: number) => `
-      <p class="description">R${f[index]}= <strong>${value.toFixed(2)} dB</strong></p>
-    `).join('')}
+    <div class="ticket-section">
+      <p class="description">Masa (m): <strong> ${mResult} kg/m2</strong></p>
+      <p class="description">Rigidez (B): <strong> ${bResult.toExponential(2)} Nm</strong></p>
+    </div>
 
-    <h1 class="title">Zone 2</h1>
-    <!-- Mostrar todos los valores de zone2 -->
-    ${zone2.map((value: number, index: number) => `
-      <p class="description">R${f[index]}= <strong>${value.toFixed(2)} dB</strong></p>
-    `).join('')}
+    <div class="ticket-section">
+      <h2 class="subtitle">Frecuencias</h2>
+      <p class="description">Frec. de coincidencia (fc):<strong> ${coincidenceFrequency.toFixed(2)} Hz</strong></p>
+      <p class="description">Frec. de densidad (fd):<strong> ${densityFrequency.toFixed(2)} KHz</strong></p>
+    </div>
+
+    <div class="ticket-section">
+      <h2 class="subtitle">Zona 1</h2>
+      ${zone1.map(
+      (value: number, index: number) => `
+          <p class="description">R${f1[index]}: <strong>${value.toFixed(2)} dB</strong></p>
+        `
+    ).join('')}
+    </div>
+
+    <div class="ticket-section">
+      <h2 class="subtitle">Zona 2</h2>
+      ${zone2.map(
+      (value: number, index: number) => `
+          <p class="description">R${f2[index]}: <strong>${value.toFixed(2)} dB</strong></p>
+        `
+    ).join('')}
+    </div>
+
+    <div class="ticket-section">
+      <h2 class="subtitle">Zona 3</h2>
+      <p class="description">fd = <strong>${zone3.toFixed(2)} dB</strong></p>
+    </div>
+
     <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/particion-simple')">
       Volver
     </ion-button>
+  </div>
+
   `;
 
     this.router.navigate(['/results'], {

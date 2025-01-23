@@ -1,12 +1,13 @@
 .pSimple-page {
     --background: #22272B;
-    --overflow: hidden;
+
 
     .content-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-top: 8rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
         align-items: center;
         animation: fade-in 1s ease-in;
 
