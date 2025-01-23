@@ -1,7 +1,6 @@
 .pSimple-page {
     --background: #22272B;
 
-
     .content-container {
         display: flex;
         flex-direction: column;
@@ -10,6 +9,7 @@
         margin-bottom: 1.5rem;
         align-items: center;
         animation: fade-in 1s ease-in;
+
 
         .title {
             font-size: 1.2rem;
@@ -26,6 +26,7 @@
             width: 100%;
             max-width: 500px;
             margin-bottom: 20px;
+
         }
 
         .input-group {
@@ -50,6 +51,7 @@
             padding-top: 8px;
             padding-bottom: 8px;
             width: 300px;
+
         }
 
         input.frequency-input:focus {
@@ -74,10 +76,8 @@
 
     }
 
-    ion-modal {
-        --background: #111827;
-    }
 }
+
 
 // @keyframes fade-in {
 //     0% {

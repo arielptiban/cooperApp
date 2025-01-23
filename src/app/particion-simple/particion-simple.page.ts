@@ -19,7 +19,8 @@ import { Router } from '@angular/router';
     IonContent,
     IonButton,
     CommonModule,
-    FormsModule,]
+    FormsModule,
+  ]
 })
 
 export class ParticionSimplePage implements OnInit {
@@ -33,6 +34,7 @@ export class ParticionSimplePage implements OnInit {
     { name: 'Frecuencia', placeholder: 'f', value: null },
 
   ];
+
 
   scientificNotationPattern = /^[+-]?\d*\.?\d+(e[+-]?\d+)?$/i;
 
@@ -116,7 +118,7 @@ export class ParticionSimplePage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 3000,
-      position: 'top',
+      position: 'bottom',
     });
 
     toast.present();
