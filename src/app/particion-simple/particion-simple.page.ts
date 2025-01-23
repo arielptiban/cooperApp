@@ -46,38 +46,6 @@ export class ParticionSimplePage implements OnInit {
   ngOnInit() {
   }
 
-  // onSubmit() {
-  //   const emptyFields = this.fields.filter(field => !field.value);
-
-  //   if (emptyFields.length > 0) {
-  //     this.createToast("Complete todos los campos");
-  //   }
-  //   else {
-  //     const [pv, t, n, O, E, c, f] = this.fields.map(field => field.value);
-
-  //     if ([pv, t, n, O, E, c, f].every(value => value !== null)) {
-
-  //       if (f! <= 100) {
-
-  //         let mResult = this.mCalculate(pv!, t!)
-  //         let bResult = this.bCalculate(t!, O!, E!)
-  //         let coincidenceFrequency = this.coincidenceFreq(c!, mResult, bResult);
-  //         let densityFrequency = this.densityFreq(E!, pv!, mResult, bResult);
-  //         let zone1 = this.zone1Calc(mResult)
-  //         let zone2 = this.zone2Calc(mResult, coincidenceFrequency, n!)
-  //         let zone3 = this.zone3Calc(mResult, f!)
-  //         this.presentResults(mResult, bResult, coincidenceFrequency, densityFrequency, zone1, zone2, zone3)
-  //       }
-  //       else {
-  //         this.createToast("Frecuencia no debe ser mayor a 100")
-  //       }
-
-  //     }
-  //     else {
-  //       this.createToast("Ha ocurrido un error, revise los valores de las frecuencias");
-  //     }
-  //   }
-  // }
 
   onSubmit() {
     // Verificar si algún campo tiene un valor vacío o nulo
@@ -147,14 +115,14 @@ export class ParticionSimplePage implements OnInit {
   }
 
   zone1Calc(mResult: number): number[] {
-    const f: number[] = [125, 250, 500, 1000];
+    const f: number[] = [125, 250, 500, 1000, 2000, 4000];
     const results = f.map(value => (20 * Math.log10(mResult * value)) - 47);
 
     return results;
   }
 
   zone2Calc(mResult: number, coincidenceFrequency: number, n: number): number[] {
-    const f: number[] = [2000, 4000];
+    const f: number[] = [125, 250, 500, 1000, 2000, 4000];
 
     let term1 = f.map(value => (20 * Math.log10(mResult * value)));
     let term2 = f.map(value => (10 * Math.log10((value / coincidenceFrequency) - 1)));
@@ -176,8 +144,8 @@ export class ParticionSimplePage implements OnInit {
       return;
     }
 
-    const f1: string[] = ['125', '250', '500', '1k'];
-    const f2: string[] = ['2k', '4k'];
+    const f1: string[] = ['125', '250', '500', '1k', '2k', '4k'];
+    const f2: string[] = ['125', '250', '500', '1k', '2k', '4k'];
 
     const calculationResult = `
     <div class="ticket">
