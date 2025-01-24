@@ -3,12 +3,12 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    background: #22272B;
+    background: #000000;
 }
 
 .ticket {
     background: #282d35;
-    border: 2px dashed #ffffff;
+    border: 2px dashed #9c41f3;
     border-radius: 10px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     padding: 1.5rem;
@@ -19,10 +19,22 @@
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #ffffff;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background-color: #9c41f3;
+        margin: 0.5rem auto 0;
+        border-radius: 3px;
+    }
 }
 
 .subtitle {
@@ -30,7 +42,7 @@
     font-weight: bold;
     color: #ffffff;
     margin: 1rem 0 0.5rem;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #9c41f3;
     padding-bottom: 0.5rem;
 }
 
@@ -50,13 +62,27 @@
 }
 
 ion-button.calculate-button {
-    --background: #000000;
-    --color: #ffffff;
-    --border-radius: 50px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --min-height: 40px;
-    --background-activated: #ffffff;
-    --color-activated: #000000;
+    --background: rgb(0, 0, 0);
+    --color: white;
+    --border-radius: 10px;
+    --box-shadow: 0 0 15px rgba(156, 65, 243, 0.5);
+    --padding-start: 24px;
+    --padding-end: 24px;
+    --min-height: 50px;
+    --background-activated: #9c41f3;
+    --color-activated: black;
+    margin-top: 1rem;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        --box-shadow: 0 0 25px rgba(156, 65, 243, 0.6);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        --box-shadow: 0 0 10px rgba(156, 65, 243, 0.5);
+
+        transform: translateY(1px);
+    }
 }

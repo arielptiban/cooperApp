@@ -1,59 +1,60 @@
 .welcome-page {
-
-    --background: none;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-        url('../../assets/icon/1638.jpg');
+    --background: black;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Asegura espacio entre los elementos */
+    align-items: center;
     font-family: 'Roboto Condensed Variable', sans-serif;
     --overflow: hidden;
+    padding: 0;
+    /* Opcional: eliminar padding */
+    margin: 0;
 
     .content-container {
-
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        height: 100vh;
-        animation: fade-in 1s ease-in;
+        position: relative;
+        width: 100%;
+        height: 100%;
 
         .icon {
-            width: 3rem;
-            height: 3rem;
-            margin-bottom: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Centra el ícono */
+            height: 10rem;
         }
 
-        .title {
-            font-size: 4rem;
-            font-weight: 900;
-            color: WHITE;
+        .sound-logo {
+            position: absolute;
+            bottom: 1rem;
+            /* Ajusta la distancia al borde inferior */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Centra horizontalmente */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+        }
+
+        .text {
+            height: 5rem;
+            margin-bottom: -20px;
         }
 
         .description {
             color: white;
-            max-width: 24rem;
-            text-align: center;
-            margin: 0 auto;
-            font-size: 4rem;
+            font-size: 1.5rem;
             font-weight: 100;
-            margin-top: -20px;
-        }
-
-        ion-button.start-button {
-            --background: rgb(255, 255, 255);
-            --color: rgb(0, 0, 0);
-            --border-radius: 10px;
-            --box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-            --padding-start: 24px;
-            --padding-end: 24px;
-            --min-height: 50px;
-            --background-activated: #000000;
-            --color-activated: white
         }
     }
 }

@@ -1,90 +1,165 @@
 .pSimple-page {
-    --background: #22272B;
+    --background: black;
+
 
     .content-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
         align-items: center;
+        margin: 2rem auto;
+        padding: 1rem;
+        max-width: 600px;
         animation: fade-in 1s ease-in;
 
-
         .title {
-            font-size: 1.2rem;
-            font-weight: bolder;
-            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffffff;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
+            position: relative;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 80px;
+                height: 3px;
+                background-color: #9c41f3;
+                margin: 0.5rem auto 0;
+                border-radius: 3px;
+            }
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 1rem;
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
-
+            max-width: 400px;
+            margin-bottom: 2rem;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            align-items: start;
-            gap: 10px;
+            gap: 0.5rem;
             width: 100%;
-        }
 
-        label {
-            color: white;
-        }
+            label {
+                color: #cbd5e0;
+                font-size: 0.95rem;
+                font-weight: 500;
+            }
 
-        input.frequency-input {
-            background: #282d35;
-            border: 1px solid #4a5568;
-            color: #ffffff;
-            padding-left: 10px;
-            padding-right: 10px;
-            border-radius: 8px;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            width: 300px;
+            input.frequency-input {
+                background: #2d3238;
+                border: 1px solid #3b4148;
+                color: #ffffff;
+                border-radius: 6px;
+                padding: 0.6rem 0.8rem;
+                width: 300px;
+                font-size: 1rem;
+                transition: all 0.3s ease;
 
-        }
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 4px #9c41f3;
+                    border-color: #9c41f3;
+                }
 
-        input.frequency-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px #d6dcdd;
-            border: 1px solid #d3e6e9;
-            transition: ease-in .1s;
+                &:hover {
+                    background: #3b4148;
+                }
+            }
         }
 
         ion-button.calculate-button {
             --background: rgb(0, 0, 0);
             --color: white;
             --border-radius: 10px;
-            --box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+            --box-shadow: 0 0 15px rgba(156, 65, 243, 0.9);
             --padding-start: 24px;
             --padding-end: 24px;
             --min-height: 50px;
-            --background-activated: #ffffff;
-            --color-activated: black
-        }
+            --background-activated: #9c41f3;
+            --color-activated: black;
+            font-weight: 600;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
 
+            &:hover {
+                --box-shadow: 0 0 25px rgba(156, 65, 243, 0.6);
+                transform: translateY(-2px);
+            }
+
+            &:active {
+                --box-shadow: 0 0 10px rgba(156, 65, 243, 0.5);
+                transform: translateY(1px);
+            }
+        }
 
     }
 
+    .spinner-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        /* Fondo semi-transparente */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        /* Asegúrate de que el spinner esté encima de otros elementos */
+    }
+
+    .loader {
+        width: 48px;
+        height: 48px;
+        border: 3px solid #FFF;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    .loader::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-bottom-color: #9c41f3;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    // Animación de entrada
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 }
-
-
-// @keyframes fade-in {
-//     0% {
-//         opacity: 0;
-//     }
-//
-//     100% {
-//         opacity: 1;
-//     }
-// }

@@ -37,6 +37,7 @@ export class ParticionSimplePage implements OnInit {
 
 
   scientificNotationPattern = /^[+-]?\d*\.?\d+(e[+-]?\d+)?$/i;
+  isCalculating: boolean = false;
 
   constructor(
     private toastController: ToastController,
@@ -48,38 +49,44 @@ export class ParticionSimplePage implements OnInit {
 
 
   onSubmit() {
-    // Verificar si algún campo tiene un valor vacío o nulo
-    const emptyFields = this.fields.filter(field => !field.value);
 
-    if (emptyFields.length > 0) {
-      this.createToast('Por favor, complete todos los campos.');
-      return;
-    }
+    this.isCalculating = true;
+    setTimeout(() => {
+      this.isCalculating = false;
+      const emptyFields = this.fields.filter(field => !field.value);
 
-    // Validar cada campo si contiene un número en notación científica
-    for (let i = 0; i < this.fields.length; i++) {
-      const fieldValue = this.fields[i].value;
-      if (fieldValue && !this.scientificNotationPattern.test(fieldValue)) {
-        this.createToast(`El valor de ${this.fields[i].name} no es válido. Ingrese un número valido o en notación científica.`);
+      if (emptyFields.length > 0) {
+        this.createToast('Por favor, complete todos los campos.');
         return;
       }
-    }
 
-    // Si todos los campos son válidos, proceder con los cálculos
-    const [pv, t, n, O, E, c, f] = this.fields.map(field => field.value);
+      // Validar cada campo si contiene un número en notación científica
+      for (let i = 0; i < this.fields.length; i++) {
+        const fieldValue = this.fields[i].value;
+        if (fieldValue && !this.scientificNotationPattern.test(fieldValue)) {
+          this.createToast(`El valor de ${this.fields[i].name} no es válido. Ingrese un número valido o en notación científica.`);
+          return;
+        }
+      }
 
-    if (f! <= 100) {
-      let mResult = this.mCalculate(pv!, t!);
-      let bResult = this.bCalculate(t!, O!, E!);
-      let coincidenceFrequency = this.coincidenceFreq(c!, mResult, bResult);
-      let densityFrequency = this.densityFreq(E!, pv!, mResult, bResult);
-      let zone1 = this.zone1Calc(mResult);
-      let zone2 = this.zone2Calc(mResult, coincidenceFrequency, n!);
-      let zone3 = this.zone3Calc(mResult, f!);
-      this.presentResults(mResult, bResult, coincidenceFrequency, densityFrequency, zone1, zone2, zone3);
-    } else {
-      this.createToast('Frecuencia no debe ser mayor a 100');
-    }
+      // Si todos los campos son válidos, proceder con los cálculos
+      const [pv, t, n, O, E, c, f] = this.fields.map(field => field.value);
+
+      if (f! <= 100) {
+        let mResult = this.mCalculate(pv!, t!);
+        let bResult = this.bCalculate(t!, O!, E!);
+        let coincidenceFrequency = this.coincidenceFreq(c!, mResult, bResult);
+        let densityFrequency = this.densityFreq(E!, pv!, mResult, bResult);
+        let zone1 = this.zone1Calc(mResult);
+        let zone2 = this.zone2Calc(mResult, coincidenceFrequency, n!);
+        let zone3 = this.zone3Calc(mResult, f!);
+        this.presentResults(mResult, bResult, coincidenceFrequency, densityFrequency, zone1, zone2, zone3);
+      } else {
+        this.createToast('Frecuencia no debe ser mayor a 100');
+      }
+    }, 2000);
+    // Verificar si algún campo tiene un valor vacío o nulo
+
   }
 
   async createToast(msg: string) {

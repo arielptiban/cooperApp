@@ -1,6 +1,6 @@
 <ion-content class="pSimple-page">
   <div class="content-container">
-    <h1 class="title">INTRODUCIR DATOS DE FRECUENCIA</h1>
+    <h1 class="title">Partición Simple</h1>
 
 
     <form (ngSubmit)="onSubmit()">
@@ -17,8 +17,13 @@
         Calcular
       </ion-button>
 
+
     </form>
 
     <ion-toast #toast message="Por favor, complete todos los campos." duration="5000" position="top"></ion-toast>
+
+    <div *ngIf="isCalculating" class="spinner-overlay">
+      <span class="loader"></span>
+    </div>
   </div>
 </ion-content>
