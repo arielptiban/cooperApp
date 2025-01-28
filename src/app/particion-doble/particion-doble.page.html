@@ -1,0 +1,29 @@
+<ion-content class="pDoble-page">
+  <div class="content-container">
+    <h1 class="title">Partición Doble</h1>
+
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="flex items-center space-x-2">
+        <div class="container">
+          <div class="input-group" *ngFor="let field of fields ; let i = index">
+            <label for="{{field.name}}">{{field.name}}</label>
+            <input type="text" class="frequency-input" placeholder="{{field.placeholder}}" [(ngModel)]="field.value"
+              name="{{field.name}}" required />
+          </div>
+        </div>
+      </div>
+      <ion-button expand="block" shape="round" class="calculate-button" type="submit">
+        Calcular
+      </ion-button>
+
+
+    </form>
+
+    <ion-toast #toast message="Por favor, complete todos los campos." duration="5000" position="top"></ion-toast>
+
+    <div *ngIf="isCalculating" class="spinner-overlay">
+      <span class="loader"></span>
+    </div>
+  </div>
+</ion-content>

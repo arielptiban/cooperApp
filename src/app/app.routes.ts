@@ -12,5 +12,9 @@ export const routes: Routes = [
   {
     path: 'results',
     loadComponent: () => import('./results/results.page').then( m => m.ResultsPage)
+  },
+  {
+    path: 'particion-doble',
+    loadComponent: () => import('./particion-doble/particion-doble.page').then( m => m.ParticionDoblePage)
   }
 ];
