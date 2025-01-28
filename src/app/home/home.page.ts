@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   }
   ionViewDidEnter() {
     setTimeout(() => {
-      this.navCtrl.navigateForward('/particion-doble');
+      this.navCtrl.navigateForward('/tabs/particion-simple');
     }, 3000);
   }
 

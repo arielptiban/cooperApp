@@ -1,0 +1,29 @@
+ion-tabs {
+    --background: #000; // Fondo negro de las pestañas
+    --color-selected: #9c41f3; // Color morado para la pestaña seleccionada
+    --color: #fff; // Color blanco para las etiquetas no seleccionadas
+}
+
+ion-tab-bar {
+    --background: #000; // Fondo negro para la barra de pestañas
+    --color-selected: #9c41f3; // Color morado para las pestañas seleccionadas
+    --color: #fff; // Color blanco para las pestañas no seleccionadas
+}
+
+ion-tab-button {
+    --color: #fff; // Color de la etiqueta no seleccionada
+    --color-selected: #9c41f3; // Color morado de la etiqueta seleccionada
+}
+
+ion-icon {
+    --color: #fff; // Color blanco para los íconos no seleccionados
+    --color-selected: #9c41f3; // Color morado para los íconos seleccionados
+}
+
+ion-label {
+    color: #fff; // Color blanco para las etiquetas de las pestañas
+}
+
+ion-tab-bar {
+    border-top: 1px solid #444; // Agregar borde superior para dar un toque de separación
+}

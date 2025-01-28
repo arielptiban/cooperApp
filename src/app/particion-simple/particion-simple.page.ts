@@ -196,7 +196,7 @@ export class ParticionSimplePage implements OnInit {
       <p class="description">fd = <strong>${zone3.toFixed(2)} dB</strong></p>
     </div>
 
-    <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/particion-simple')">
+    <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/tabs/particion-simple')">
       Volver
     </ion-button>
   </div>

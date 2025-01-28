@@ -91,7 +91,7 @@ export class ParticionDoblePage implements OnInit {
       <p class="description">Masa (m): <strong> ${meResult.toFixed(2)} kg/m2</strong></p>
     </div>
 
-    <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/particion-doble')">
+    <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/tabs/particion-doble')">
       Volver
     </ion-button>
   </div>
