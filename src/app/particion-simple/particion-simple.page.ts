@@ -137,10 +137,6 @@ export class ParticionSimplePage implements OnInit {
 
     const R = term1.map((value, index) => value + term2[index] + term3 - 46);
 
-    console.log(term1)
-    console.log(term2)
-    console.log(term3)
-    console.log(R)
     return R;
   }
 

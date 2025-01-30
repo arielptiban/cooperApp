@@ -20,6 +20,8 @@ export class ParticionDoblePage implements OnInit {
   fields = [
     { name: 'Masa del Ladrillo (kg/m2)', placeholder: 'm1', value: null },
     { name: 'Masa del Gypsum (kg/m2)', placeholder: 'm2', value: null },
+    { name: 'Velocidad del Sonido', placeholder: 'c', value: null },
+    { name: 'Distancia entre Particiones', placeholder: 'L', value: null },
 
   ];
   scientificNotationPattern = /^[+-]?\d*\.?\d+(e[+-]?\d+)?$/i;
@@ -56,10 +58,12 @@ export class ParticionDoblePage implements OnInit {
       }
 
       // Si todos los campos son válidos, proceder con los cálculos
-      const [m1, m2] = this.fields.map(field => Number(field.value));
+      const [m1, m2, c, L] = this.fields.map(field => Number(field.value));
 
       let meResult = this.meCalculate(m1, m2);
-      this.presentResults(meResult);
+      let foResult = this.foCalculate(c, meResult, L)
+      let flResult = this.flCalculate(c, L)
+      this.presentResults(meResult, foResult, flResult);
 
     }, 2000);
 
@@ -81,7 +85,17 @@ export class ParticionDoblePage implements OnInit {
     return me
   }
 
-  presentResults(meResult: number) {
+  foCalculate(c: number, me: number, L: number) {
+    let fo = ((1.03 * c) / Math.PI) * Math.sqrt(1 / (L * me))
+    return fo
+  }
+
+  flCalculate(c: number, L: number) {
+    let fl = c / (2 * Math.PI * L)
+    return fl
+  }
+
+  presentResults(meResult: number, foResult: number, flResult: number) {
 
     const calculationResult = `
     <div class="ticket">
@@ -89,6 +103,14 @@ export class ParticionDoblePage implements OnInit {
 
     <div class="ticket-section">
       <p class="description">Masa (m): <strong> ${meResult.toFixed(2)} kg/m2</strong></p>
+    </div>
+
+    <div class="ticket-section">
+      <p class="description">Frec. (fo): <strong> ${foResult.toFixed(2)} Hz</strong></p>
+    </div>
+
+    <div class="ticket-section">
+      <p class="description">Frec. (fl): <strong> ${flResult.toFixed(2)} Hz</strong></p>
     </div>
 
     <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/tabs/particion-doble')">
