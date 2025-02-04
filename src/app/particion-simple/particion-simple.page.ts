@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
 
 export class ParticionSimplePage implements OnInit {
   fields = [
-    { name: 'Densidad (kg/m)', placeholder: 'pv', value: null },
+    { name: 'Densidad Volumétrica (kg/m3)', placeholder: 'pv', value: null },
     { name: 'Espesor (m)', placeholder: 't', value: null },
     { name: 'Factor de Amortiguamiento', placeholder: 'η', value: null },
     { name: 'Coeficiente de Poisson', placeholder: 'σ', value: null },

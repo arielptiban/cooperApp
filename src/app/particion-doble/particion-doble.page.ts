@@ -63,7 +63,12 @@ export class ParticionDoblePage implements OnInit {
       let meResult = this.meCalculate(m1, m2);
       let foResult = this.foCalculate(c, meResult, L)
       let flResult = this.flCalculate(c, L)
-      this.presentResults(meResult, foResult, flResult);
+      let Rm1 = this.RLadrillo(m1)
+      let Rm2 = this.RGypsum(m2)
+
+      let zone2 = this.zone2Calculate(Rm1, Rm2, L)
+      let zone3 = this.zone3Calculate(Rm1, Rm2)
+      this.presentResults(meResult, foResult, flResult, zone2, zone3);
 
     }, 2000);
 
@@ -95,22 +100,82 @@ export class ParticionDoblePage implements OnInit {
     return fl
   }
 
-  presentResults(meResult: number, foResult: number, flResult: number) {
+  RLadrillo(m1: number) {
+    const f: number[] = [125, 250, 500, 1000, 2000, 4000];
+    const resultsLadrillo = f.map(value => (20 * Math.log10(m1 * value)) - 47);
+    return resultsLadrillo
+
+  }
+
+  RGypsum(m2: number) {
+    const f: number[] = [125, 250, 500, 1000, 2000, 4000];
+    const resultsGypsum = f.map(value => (20 * Math.log10(m2 * value)) - 47);
+    return resultsGypsum
+  }
+
+  zone2Calculate(rm1: number[], rm2: number[], L: number) {
+    const f: number[] = [125, 250, 500, 1000];
+
+    const roundedRm1 = rm1.map(value => parseFloat(value.toFixed(1)));
+    const roundedRm2 = rm2.map(value => parseFloat(value.toFixed(1)));
+
+    const results = f.map((value, index) =>
+      (roundedRm1[index] + roundedRm2[index] + 20 * Math.log10(L * value)) - 29
+    );
+    return results
+  }
+
+
+  zone3Calculate(rm1: number[], rm2: number[]) {
+    const f: number[] = [2000, 4000];
+
+    const roundedRm1 = rm1.slice(-2).map(value => parseFloat(value.toFixed(1)));
+    const roundedRm2 = rm2.slice(-2).map(value => parseFloat(value.toFixed(1)));
+
+    const results = f.map((_, index) =>
+      roundedRm1[index] + roundedRm2[index] + 6
+    );
+
+    return results;
+  }
+
+
+
+  presentResults(meResult: number, foResult: number, flResult: number, zone2: number[], zone3: number[]) {
+    const f: string[] = ['125', '250', '500', '1k', '2k', '4k'];
 
     const calculationResult = `
     <div class="ticket">
     <h1 class="title">Resultados</h1>
 
     <div class="ticket-section">
-      <p class="description">Masa (m): <strong> ${meResult.toFixed(2)} kg/m2</strong></p>
+      <p class="description">Masa (me): <strong> ${meResult.toFixed(2)} kg/m2</strong></p>
     </div>
 
     <div class="ticket-section">
-      <p class="description">Frec. (fo): <strong> ${foResult.toFixed(2)} Hz</strong></p>
+      <p class="description">Frec. de Resonancia (fo): <strong> ${foResult.toFixed(2)} Hz</strong></p>
     </div>
 
     <div class="ticket-section">
-      <p class="description">Frec. (fl): <strong> ${flResult.toFixed(2)} Hz</strong></p>
+      <p class="description">Frec. de Cavidad (fl): <strong> ${flResult.toFixed(2)} Hz</strong></p>
+    </div>
+
+    <div class="ticket-section">
+      <h2 class="subtitle">Zona 2</h2>
+      ${zone2.map(
+      (value: number, index: number) => `
+          <p class="description">R${f[index]}: <strong>${value.toFixed(1)} dB</strong></p>
+        `
+    ).join('')}
+    </div>
+
+    <div class="ticket-section">
+      <h2 class="subtitle">Zona3</h2>
+      ${zone3.map(
+      (value: number, index: number) => `
+          <p class="description">R${f[f.length - 2 + index]}: <strong>${value.toFixed(1)} dB</strong></p>
+        `
+    ).join('')}
     </div>
 
     <ion-button expand="block" shape="round" class="calculate-button" onclick="window.angularComponentRef.navigateTo('/tabs/particion-doble')">
